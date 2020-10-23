@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.10)
+project(BeanDB)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(BeanDB main.cpp src/vm/vm.cpp src/db.cpp src/db.h src/index/b_plus_tree.cpp src/index/b_plus_tree.h src/page/page.cpp src/lru.cpp src/lru.h src/buffer/buffer_pool.cpp src/buffer/buffer_pool.h src/index/index_iterator.cpp src/index/index_iterator.h test/test.cpp test/test.h src/vm/vm.cpp src/vm/vm.h src/lru.cpp src/lru.h src/config.cpp src/util/config.h src/page/page.h src/page/b_plus_tree_page.cpp src/page/b_plus_tree_page.h src/page/b_plus_tree_leaf.cpp src/page/b_plus_tree_leaf.h src/page/b_plus_tree_root.cpp src/page/b_plus_tree_root.h src/page/b_plus_tree_internal.cpp src/page/b_plus_tree_internal.h src/buffer/replacer.h src/buffer/lru_replacer.cpp src/buffer/lru_replacer.h src/lexer/lexer.cpp src/lexer/lexer.h)
