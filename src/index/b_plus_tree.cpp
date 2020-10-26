@@ -15,7 +15,7 @@
 // UNDONE: read-write lock, does 1 operation holds just 2 locks at one time?
 //                                        or holds a sequence of locks from root to bottom?
 
-namespace DB::tree {
+namespace DB::index {
 
     using namespace ::DB::page;
 

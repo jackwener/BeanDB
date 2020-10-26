@@ -14,7 +14,6 @@
 #include <cstring>
 #include <iostream>
 #include "../util/config.h"
-#include "../buffer_pool/buffer_pool.h"
 #include "../util/rwmutex.h"
 
 namespace DB {

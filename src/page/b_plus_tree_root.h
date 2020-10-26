@@ -6,7 +6,7 @@
 #define BEANDB_B_PLUS_TREE_ROOT_H
 
 
-namespace DB{
+namespace DB::page{
     class RootPage : public InternalPage {
         friend class ::DB::tree::BTree;
 

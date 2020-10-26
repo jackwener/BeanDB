@@ -6,49 +6,56 @@
 #define BEANDB_B_PLUS_TREE_PAGE_H
 
 #include "../util/config.h"
+#include "page.h"
 
-namespace DB { class Page; }
-namespace DB {
+namespace DB::page {
     // Abstract class.
-    class BPlusTreePage {
+    class BTreePage :  Page {
+        friend class ::DB::tree::BTree;
     public:
-        bool IsLeafPage() const;
 
-        bool IsRootPage() const;
+        BTreePage(page_t_t, page_id_t, page_id_t parent_id, uint32_t nEntry, buffer::BufferPoolManager *,
+                  key_t_t, uint32_t str_len, bool isInit);
 
-        void SetPageType(IndexPageType page_type);
+        virtual ~BTreePage();
 
-        int GetSize() const;
+        virtual void update_data() = 0;
 
-        void SetSize(int size);
+        page_id_t get_parent_id() const noexcept;
 
-        void IncreaseSize(int amount);
+        uint32_t get_nEntry() const noexcept;
 
-        int GetMaxSize() const;
+        void set_parent_id(page_id_t) noexcept;
 
-        void SetMaxSize(int max_size);
+        key_t_t get_key_t() const noexcept;
 
-        int GetMinSize() const;
+        uint32_t get_str_len() const noexcept;
 
-        page_id_t GetParentPageId() const;
+        // insert key at `index`.
+        void insert_key(uint32_t index, const KeyEntry &);
 
-        void SetParentPageId(page_id_t parent_page_id);
+        // erase key at `index`.
+        // *** the caller should later changes keys[index] and values[index] ***
+        void erase_key(uint32_t index);
 
-        page_id_t GetPageId() const;
+        // called when key_t is (VAR)CHAR
+        KeyEntry read_key(uint32_t index) const;
 
-        void SetPageId(page_id_t page_id);
 
-        void SetLSN(lsn_t lsn = INVALID_LSN);
+    public:
 
-    private:
-        // member variable, attributes that both internal and leaf page share
-        IndexPageType page_type_;
-        lsn_t lsn_;
-        int size_;
-        int max_size_;
-        page_id_t parent_page_id_;
-        page_id_t page_id_;
-    };
+        int32_t *keys_;    // nEntry // WTF, if in protected, BTree can not access this.
+        page_id_t parent_id_;
+        uint32_t nEntry_;
+        const key_t_t key_t_;
+        const uint32_t str_len_;
+
+        // uint32_t last_offset_; // used for CHAR-key, insert ** from bottom to up **,
+        // denotes the last front offset, initialized as `PAGE_SIZE`.
+        // It means data_[last_offset_-1] == '\0' for the next key-str.
+        // *** not record on disk, recovered when read this page. ***
+
+    }; // end class BTreePage
 }
 
 

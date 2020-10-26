@@ -4,6 +4,6 @@
 
 #include "index_iterator.h"
 
-namespace DB {
+namespace DB::index {
 
 }

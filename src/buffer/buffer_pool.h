@@ -14,7 +14,7 @@
 
 namespace DB { class Page; }
 namespace DB { class Replacer; }
-namespace DB {
+namespace DB::buffer {
     class BufferPoolManager {
     public:
         BufferPoolManager(size_t pool_size)

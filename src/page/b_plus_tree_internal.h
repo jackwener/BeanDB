@@ -6,7 +6,7 @@
 #define BEANDB_B_PLUS_TREE_INTERNAL_H
 
 
-namespace DB{
+namespace DB::page{
     // for INTERNAL
     class InternalPage : public BTreePage {
         friend class ::DB::tree::BTree;
@@ -23,7 +23,7 @@ namespace DB{
     public:
         page_id_t *branch_;     // nEntry + 1
 
-    };
+    }; // end class InternalPage
 }
 
 
